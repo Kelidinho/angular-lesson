@@ -1,0 +1,40 @@
+<h1> DragonBall Page</h1>
+<hr/>
+
+<section class="row">
+  <div class="col-12 col-sm-6">
+    <form [formGroup]="characterForm" (ngSubmit)="addCharacter()">
+
+      <h3>Agregar: {{ characterForm.get('name')?.value }}</h3>
+
+      <input type="text"
+             formControlName="name"
+             class="form-control"
+             placeholder="Nombre"/>
+
+      <input type="number"
+             formControlName="power"
+             class="form-control mt-2"
+             placeholder="Poder"/>
+
+      <button type="submit"
+              class="mt-2 btn btn-primary"
+              [disabled]="characterForm.invalid">
+        Agregar
+      </button>
+
+    </form>
+  </div>
+
+  <div class="col-12 col-sm-6">
+    <h3>Listado fuertes:</h3>
+    <ul>
+      @for (character of visibleCharacters(); track character.id; let idx = $index) {
+        <li>
+          <span>{{ idx + 1 }} {{ character.name }}</span>
+          <strong [class]="character.power > 9000 ? 'text-danger' : 'text-success'"> ({{ character.power }})</strong>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
